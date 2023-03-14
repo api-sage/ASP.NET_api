@@ -9,6 +9,8 @@ namespace crudapi.Profiles
         {
             CreateMap<Model.RegionTable, Model.DTO.RegionTable>()
                 .ReverseMap();
+            CreateMap<Model.RegionTable, Model.DTO.UpdateRegionRequest>()
+                .ReverseMap();
         }
     }
 }
