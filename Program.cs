@@ -1,5 +1,6 @@
 
 using crudapi.DBContext;
+using crudapi.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace crudapi
@@ -18,6 +19,8 @@ namespace crudapi
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<CRUDDbContext>(options => options.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<IRegion, Region>();
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
             var app = builder.Build();
 

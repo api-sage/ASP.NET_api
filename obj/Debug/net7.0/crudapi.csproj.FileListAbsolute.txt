@@ -74,3 +74,5 @@ C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\obj\Debug\net7.0\re
 C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\obj\Debug\net7.0\crudapi.pdb
 C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\obj\Debug\net7.0\crudapi.genruntimeconfig.cache
 C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\obj\Debug\net7.0\ref\crudapi.dll
+C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
