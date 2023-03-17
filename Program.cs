@@ -21,6 +21,7 @@ namespace crudapi
                 builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<IRegion, Region>();
             builder.Services.AddScoped<IWalk, Walk>();
+            builder.Services.AddScoped<IWalkDifficulty, WalkDifficulty>();
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
             var app = builder.Build();
