@@ -90,3 +90,4 @@ C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\Ne
 C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\FluentValidation.dll
 C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
 C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

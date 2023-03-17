@@ -2,6 +2,7 @@
 using crudapi.Model;
 using crudapi.Model.DTO;
 using crudapi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Mvc.ModelBinding;
 //using System.Web.Mvc;
@@ -10,6 +11,7 @@ namespace crudapi.Controllers
 {
     [ApiController]
     [Route("/regions")]
+    [Authorize]
     public class RegionsController : Controller
     {
         private readonly IRegion _regionRepo;

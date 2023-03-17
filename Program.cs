@@ -2,7 +2,10 @@
 using crudapi.DBContext;
 using crudapi.Repositories;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace crudapi
 {
@@ -26,6 +29,17 @@ namespace crudapi
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
             builder.Services
                 .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Program>());
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["JWT:Issuer"],
+                    ValidAudience = builder.Configuration["JWT:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+                });
 
             var app = builder.Build();
 
@@ -37,6 +51,8 @@ namespace crudapi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
