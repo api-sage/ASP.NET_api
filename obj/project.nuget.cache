@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "p1UiVVCemwrdq9FBydfGqh3TBHqxcDIV+vxlLhVF3VZc/rMt1iOUkzr6I/gvqKowAaB0dVbQCtQ9RI6p1LeViw==",
+  "dgSpecHash": "784Ksh65qfVndut0BH5tz+CDI0+rtPanFJwV4QsFg6AmaRgsWYrJjr0JMrFSi9acg8WP1tZnEW2XeXoRsDPeyg==",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\CSharp\\aspnet\\prj1\\aspapi\\ASP.NET-apis\\crudapi\\crudapi.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,9 @@
     "C:\\Users\\USER\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.2.2\\fluentvalidation.aspnetcore.11.2.2.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnet.mvc\\5.2.9\\microsoft.aspnet.mvc.5.2.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.9\\microsoft.aspnet.razor.3.2.9.nupkg.sha512",

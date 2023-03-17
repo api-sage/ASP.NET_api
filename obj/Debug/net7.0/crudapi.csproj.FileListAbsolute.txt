@@ -87,3 +87,6 @@ C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\Sy
 C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\Microsoft.Web.Infrastructure.dll
 C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\FluentValidation.dll
+C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
+C:\Users\USER\CSharp\aspnet\prj1\aspapi\ASP.NET-apis\crudapi\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll

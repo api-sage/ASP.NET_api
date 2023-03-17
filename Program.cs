@@ -1,6 +1,7 @@
 
 using crudapi.DBContext;
 using crudapi.Repositories;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace crudapi
@@ -23,6 +24,8 @@ namespace crudapi
             builder.Services.AddScoped<IWalk, Walk>();
             builder.Services.AddScoped<IWalkDifficulty, WalkDifficulty>();
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
+            builder.Services
+                .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Program>());
 
             var app = builder.Build();
 

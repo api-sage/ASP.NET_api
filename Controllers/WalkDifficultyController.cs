@@ -37,6 +37,7 @@ namespace crudapi.Controllers
         [HttpPost]
         public async Task<IActionResult> AddWalkDifficulty(Model.DTO.AddWalkDifficultyRequest walk)
         {
+
             Model.WalksDifficultyTable newEntry = _mapper.Map<Model.WalksDifficultyTable>(walk);
             Model.WalksDifficultyTable NewEntey = await _walkDifficulty.AddWalkDifficultyAsync(newEntry);
             Model.DTO.AddWalkDifficultyRequest Response = _mapper.Map<Model.DTO.AddWalkDifficultyRequest>(NewEntey);
