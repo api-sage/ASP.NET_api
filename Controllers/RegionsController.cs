@@ -103,21 +103,25 @@ namespace crudapi.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> UpdateRegion([FromRoute]Guid id, [FromBody]UpdateRegionRequest existingRegion)
+        public async Task<IActionResult> UpdateRegion([FromRoute]Guid id,
+            [FromBody]UpdateRegionRequest existingRegion)
         {
-
-            Model.RegionTable region = _mapper.Map<Model.RegionTable>(existingRegion);
-
-            Model.RegionTable Updateregion = await _regionRepo.UpdateRegion(id, region);
-
-            if (region == null)
+            if (UpdateRegionValidation(id,existingRegion))
             {
-                return NotFound();
+                Model.RegionTable region = _mapper.Map<Model.RegionTable>(existingRegion);
+
+                Model.RegionTable Updateregion = await _regionRepo.UpdateRegion(id, region);
+
+                if (Updateregion == null)
+                {
+                    return NotFound("No data has the inputted Id.");
+                }
+
+                Model.DTO.UpdateRegionRequest DTORegion = _mapper.Map<Model.DTO.UpdateRegionRequest>(Updateregion);
+
+                return Ok(DTORegion);
             }
-
-            Model.DTO.UpdateRegionRequest DTORegion = _mapper.Map<Model.DTO.UpdateRegionRequest>(Updateregion);
-
-            return Ok(DTORegion);
+            return Ok(ModelState);
         }
     
 
@@ -178,6 +182,53 @@ namespace crudapi.Controllers
                 return true;
             }
         }
+
+        private bool UpdateRegionValidation(Guid id, UpdateRegionRequest existingRegion)
+
+        {
+            if (string.IsNullOrWhiteSpace(existingRegion.Code)
+                || existingRegion.Code.Contains(" "))
+            {
+                ModelState.AddModelError(nameof(existingRegion.Code), $"{nameof(existingRegion.Code)} is invalid");
+                return false;
+            }
+
+            else if (string.IsNullOrWhiteSpace(existingRegion.Name)
+                || existingRegion.Name.Contains(" "))
+            {
+                ModelState.AddModelError(nameof(existingRegion.Name), $"{nameof(existingRegion.Name)} is invalid");
+                return false;
+            }
+            else if (existingRegion.Area <= 0)
+            {
+                ModelState.AddModelError(nameof(existingRegion.Area),
+                    $"{nameof(existingRegion.Area)} cannot be less than or equal to 0");
+                return false;
+            }
+            else if (existingRegion.Latitude <= 0)
+            {
+                ModelState.AddModelError(nameof(existingRegion.Latitude),
+                    $"{nameof(existingRegion.Latitude)} cannot be less than or equal to 0");
+                return false;
+            }
+            else if (existingRegion.Longitude <= 0)
+            {
+                ModelState.AddModelError(nameof(existingRegion.Longitude),
+                    $"{nameof(existingRegion.Longitude)} cannot be less than or equal to 0");
+                return false;
+            }
+            else if (existingRegion.Population <= 0)
+            {
+                ModelState.AddModelError(nameof(existingRegion.Population),
+                    $"{nameof(existingRegion.Population)} cannot be less than or equal to 0");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
 
         #endregion
 
