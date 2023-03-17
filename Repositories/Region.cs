@@ -15,7 +15,7 @@ namespace crudapi.Repositories
             newRegion.Id = Guid.NewGuid();
             await _db.AddAsync(newRegion);
             await _db.SaveChangesAsync();
-            var regions = await _db.Regions.ToListAsync();
+            List<RegionTable> regions = await _db.Regions.ToListAsync();
             return regions;
         }
 
@@ -34,7 +34,10 @@ namespace crudapi.Repositories
         public async Task<RegionTable> GetRegion(Guid id)
         {
             Model.RegionTable region = await _db.Regions.FirstOrDefaultAsync(r => r.Id == id);
-            return region;
+            if (_db.Regions.Contains(region))
+                return region;
+
+            return null;
         }
 
         public async Task<IEnumerable<RegionTable>> GetRegions()

@@ -3,6 +3,8 @@ using crudapi.Model;
 using crudapi.Model.DTO;
 using crudapi.Repositories;
 using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc.ModelBinding;
+//using System.Web.Mvc;
 
 namespace crudapi.Controllers
 {
@@ -30,9 +32,16 @@ namespace crudapi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetRegion(Guid id)
         {
-            Model.RegionTable region = await _regionRepo.GetRegion(id);
-            Model.DTO.RegionTable DTORegion = _mapper.Map<Model.DTO.RegionTable>(region);
-            return Ok(DTORegion);
+            if (GetRegionValidation(id))
+            {
+                Model.RegionTable region = await _regionRepo.GetRegion(id);
+                if (region != null)
+                {
+                    Model.DTO.RegionTable DTORegion = _mapper.Map<Model.DTO.RegionTable>(region);
+                    return Ok(DTORegion);
+                }
+            }
+            return StatusCode(400, "This id does not have an account with us");
         }
 
         [HttpPost]
@@ -40,35 +49,38 @@ namespace crudapi.Controllers
         [ActionName("AddRegion")]
         public async Task<IActionResult> AddRegion(AddRegionRequest newRegion)
         {
-            //Request DTO to domain model
-            Model.RegionTable NewRegion = new Model.RegionTable()
+            if (AddRegionValidation(newRegion))
             {
-                Code = newRegion.Code,
-                Name = newRegion.Name,
-                Area = newRegion.Area,
-                Latitude = newRegion.Latitude,
-                Longitude = newRegion.Longitude,
-                Population = newRegion.Population,
-            };
+                //Request DTO to domain model
+                Model.RegionTable NewRegion = new Model.RegionTable()
+                {
+                    Code = newRegion.Code,
+                    Name = newRegion.Name,
+                    Area = newRegion.Area,
+                    Latitude = newRegion.Latitude,
+                    Longitude = newRegion.Longitude,
+                    Population = newRegion.Population,
+                };
 
-            //Pass details to repository
+                //Pass details to repository
 
-            IEnumerable<Model.RegionTable> region = await _regionRepo.AddRegion(NewRegion);
+                IEnumerable<Model.RegionTable> region = await _regionRepo.AddRegion(NewRegion);
 
-            //Convert back to DTO
+                //Convert back to DTO
 
-            Model.DTO.RegionTable DTORegion = new Model.DTO.RegionTable()
-            {
-                Id = NewRegion.Id,
-                Code = NewRegion.Code,
-                Name = NewRegion.Name,
-                Area = NewRegion.Area,
-                Latitude = NewRegion.Latitude,
-                Longitude = NewRegion.Longitude,
-                Population = NewRegion.Population,
-            };
-
-            return CreatedAtAction(nameof(AddRegion), new {id=DTORegion.Id}, region);
+                Model.DTO.RegionTable DTORegion = new Model.DTO.RegionTable()
+                {
+                    Id = NewRegion.Id,
+                    Code = NewRegion.Code,
+                    Name = NewRegion.Name,
+                    Area = NewRegion.Area,
+                    Latitude = NewRegion.Latitude,
+                    Longitude = NewRegion.Longitude,
+                    Population = NewRegion.Population,
+                };
+                return CreatedAtAction(nameof(AddRegion), new {id=DTORegion.Id}, region);
+            }
+            return BadRequest(ModelState);
         }
 
         [HttpDelete]
@@ -107,5 +119,68 @@ namespace crudapi.Controllers
 
             return Ok(DTORegion);
         }
+    
+
+        #region Private methods
+
+        private bool GetRegionValidation (Guid id)
+        {
+            if (id.ToString().Length != 32 && string.IsNullOrWhiteSpace(id.ToString()))
+            {
+                ModelState.AddModelError(nameof(Model.RegionTable.Id),
+                    $"{nameof(Model.RegionTable.Id)} cannot accept the provided Id data");
+                return false;
+            }
+            return true;
+        }
+
+        private bool AddRegionValidation (AddRegionRequest newRegion)
+        {
+            if (string.IsNullOrWhiteSpace(newRegion.Code) 
+                || newRegion.Code.Contains(" "))
+            {
+                ModelState.AddModelError(nameof(newRegion.Code), $"{nameof(newRegion.Code)} is invalid");
+                return false;
+            }
+
+            else if (string.IsNullOrWhiteSpace(newRegion.Name)
+                || newRegion.Name.Contains(" "))
+            {
+                ModelState.AddModelError(nameof(newRegion.Name), $"{nameof(newRegion.Name)} is invalid");
+                return false;
+            }
+            else if (newRegion.Area<=0)
+            {
+                ModelState.AddModelError(nameof(newRegion.Area),
+                    $"{nameof(newRegion.Area)} cannot be less than or equal to 0");
+                return false;
+            }
+            else if (newRegion.Latitude <= 0)
+            {
+                ModelState.AddModelError(nameof(newRegion.Latitude),
+                    $"{nameof(newRegion.Latitude)} cannot be less than or equal to 0");
+                return false;
+            }
+            else if (newRegion.Longitude <= 0)
+            {
+                ModelState.AddModelError(nameof(newRegion.Longitude),
+                    $"{nameof(newRegion.Longitude)} cannot be less than or equal to 0");
+                return false;
+            }
+            else if (newRegion.Population <= 0)
+            {
+                ModelState.AddModelError(nameof(newRegion.Population),
+                    $"{nameof(newRegion.Population)} cannot be less than or equal to 0");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        #endregion
+
     }
+
 }
