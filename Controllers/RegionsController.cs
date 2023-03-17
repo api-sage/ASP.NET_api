@@ -23,7 +23,7 @@ namespace crudapi.Controllers
         {
             IEnumerable<Model.RegionTable> regions = await _regionRepo.GetRegions();
             List<Model.DTO.RegionTable> DTORegions = _mapper.Map<List<Model.DTO.RegionTable>>(regions);
-            return Ok(regions);
+            return Ok(DTORegions);
         }
 
         [HttpGet]

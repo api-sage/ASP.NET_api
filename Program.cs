@@ -20,6 +20,7 @@ namespace crudapi
             builder.Services.AddDbContext<CRUDDbContext>(options => options.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<IRegion, Region>();
+            builder.Services.AddScoped<IWalk, Walk>();
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
             var app = builder.Build();
