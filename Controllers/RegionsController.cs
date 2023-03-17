@@ -87,18 +87,22 @@ namespace crudapi.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> DeleteRegion(Guid id)
         {
-            //Get region from database
-            Model.RegionTable region = await _regionRepo.DeleteRegion(id);
-
-            //If null return NotFound()
-            if (region == null)
+            if (DeleteValidation(id))
             {
-                return NotFound();
-            }
+                //Get region from database
+                Model.RegionTable region = await _regionRepo.DeleteRegion(id);
 
-            //Convert back to DTO Model
-            Model.DTO.RegionTable DTORegion = _mapper.Map<Model.DTO.RegionTable>(region);
-            return Ok(DTORegion); 
+                //If null return NotFound()
+                if (region == null)
+                {
+                    return NotFound("Data with the inputted id does not exist");
+                }
+
+                //Convert back to DTO Model
+                Model.DTO.RegionTable DTORegion = _mapper.Map<Model.DTO.RegionTable>(region);
+                return Ok(DTORegion); 
+            }
+            return BadRequest(ModelState);
         }
 
         [HttpPut]
@@ -121,7 +125,7 @@ namespace crudapi.Controllers
 
                 return Ok(DTORegion);
             }
-            return Ok(ModelState);
+            return BadRequest(ModelState);
         }
     
 
@@ -227,6 +231,18 @@ namespace crudapi.Controllers
             {
                 return true;
             }
+        }
+
+        private bool DeleteValidation(Guid id)
+
+        {
+            if (id.ToString().Length != 32 && string.IsNullOrWhiteSpace(id.ToString()))
+            {
+                ModelState.AddModelError(nameof(Model.RegionTable.Id),
+                    $"{nameof(Model.RegionTable.Id)} cannot accept the provided Id data");
+                return false;
+            }
+            return true;
         }
 
 
