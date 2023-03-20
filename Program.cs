@@ -26,6 +26,8 @@ namespace crudapi
             builder.Services.AddScoped<IRegion, Region>();
             builder.Services.AddScoped<IWalk, Walk>();
             builder.Services.AddScoped<IWalkDifficulty, WalkDifficulty>();
+            builder.Services.AddSingleton<IUser, UserImplementation>();
+            builder.Services.AddScoped<IToken, TokenImplementation>();
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
             builder.Services
                 .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Program>());

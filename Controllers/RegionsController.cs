@@ -10,8 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace crudapi.Controllers
 {
     [ApiController]
-    [Route("/regions")]
-    [Authorize]
+    [Route("[controller]")]
     public class RegionsController : Controller
     {
         private readonly IRegion _regionRepo;
@@ -23,6 +22,7 @@ namespace crudapi.Controllers
             _mapper = mapper;
         }
         [HttpGet]
+        [Authorize(Roles ="reader")]
         public async Task<IActionResult> GetRegions()
         {
             IEnumerable<Model.RegionTable> regions = await _regionRepo.GetRegions();
@@ -32,6 +32,7 @@ namespace crudapi.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetRegion(Guid id)
         {
             if (GetRegionValidation(id))
@@ -49,6 +50,7 @@ namespace crudapi.Controllers
         [HttpPost]
         [Route("new_region")]
         [ActionName("AddRegion")]
+        [Authorize(Roles = "reader, writer")]
         public async Task<IActionResult> AddRegion(AddRegionRequest newRegion)
         {
             if (AddRegionValidation(newRegion))
@@ -87,6 +89,7 @@ namespace crudapi.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "reader, writer")]
         public async Task<IActionResult> DeleteRegion(Guid id)
         {
             if (DeleteValidation(id))
@@ -109,6 +112,7 @@ namespace crudapi.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "reader, writer")]
         public async Task<IActionResult> UpdateRegion([FromRoute]Guid id,
             [FromBody]UpdateRegionRequest existingRegion)
         {
