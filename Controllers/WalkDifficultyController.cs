@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using crudapi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace crudapi.Controllers
 {
     [ApiController]
-    [Route("/walkDifficulty")]
+    [Route("[controller]")]
     public class WalkDifficultyController : Controller
     {
         private readonly IWalkDifficulty _walkDifficulty;
@@ -17,6 +18,7 @@ namespace crudapi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="reader, writer")]
         public async Task<IActionResult> GetAllAsync()
         {
             IEnumerable<Model.WalksDifficultyTable> Walks = await _walkDifficulty.GetAllAsync();
@@ -26,6 +28,7 @@ namespace crudapi.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetWalkDifficulty")]
+        [Authorize(Roles ="reader, writer")]
         public async Task<IActionResult> GetWalkDifficulty(Guid id)
         {
             Model.WalksDifficultyTable walk = await _walkDifficulty.GetWalkDifficultyAsync(id);
@@ -35,6 +38,8 @@ namespace crudapi.Controllers
         }
 
         [HttpPost]
+        [Route("/newWalk")]
+        [Authorize(Roles ="writer")]
         public async Task<IActionResult> AddWalkDifficulty(Model.DTO.AddWalkDifficultyRequest walk)
         {
 
@@ -46,6 +51,7 @@ namespace crudapi.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles ="writer")]
         public async Task<IActionResult> UpdateAsync(Guid id, Model.DTO.UpdateWalkDifficulty existingEntry)
         {
             Model.WalksDifficultyTable ExistingEntry = _mapper.Map<Model.WalksDifficultyTable>(existingEntry);
@@ -55,6 +61,7 @@ namespace crudapi.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles ="writer")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             Model.WalksDifficultyTable Response = await _walkDifficulty.DeleteAsync(id);

@@ -7,11 +7,11 @@
             new Model.User()
             {
                 Id = Guid.NewGuid(),
-                UserName= "policy",
+                UserName= "paulafolabi",
                 EmailAddress="afolad100@gmail.com",
                 FirstName="Paul",
                 LastName="Afolabi",
-                Password="1&i355O8",
+                Password="asdf;lkj",
                 Roles=new List<string> ()
                 {
                     "Developer",
