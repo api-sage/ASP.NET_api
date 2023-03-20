@@ -23,7 +23,7 @@ To test run this on your local machine;
 Authorization- To get read/write access to the db, use these login details;
 
 - Username: paulafolabi
-- Password: 0123456789
+- Password: asdf;lkj
 
 #################################################
 
